@@ -22,7 +22,13 @@ import Card from "./Card";
 
   //Increments currCardIdx state by 1
   function goForward() {
-    setCurrCardIdx(currCardIdx + 1);
+    const nextCardIdx = (currCardIdx === photos.length-1) ? 0 : (currCardIdx + 1);
+    setCurrCardIdx(nextCardIdx);
+  }
+  //Decrements currCardIdx state by 1
+  function goBackward() {
+    const nextCardIdx = (currCardIdx === 0) ? (photos.length-1) : (currCardIdx - 1);
+    setCurrCardIdx(nextCardIdx);
   }
 
   return (
@@ -31,7 +37,7 @@ import Card from "./Card";
       <div className="Carousel-main">
         <i
           className="fas fa-chevron-circle-left fa-2x"
-          onClick={goForward}
+          onClick={goBackward}
         />
         <Card
           caption={currCard.caption}
