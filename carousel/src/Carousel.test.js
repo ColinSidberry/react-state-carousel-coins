@@ -2,7 +2,7 @@ import { render, fireEvent } from "@testing-library/react";
 import Carousel from "./Carousel";
 import TEST_IMAGES from "./_testCommon.js";
 
-it("works when you click on the right arrow", function() {
+it("works when you click on the right arrow", function () {
   const { container } = render(
     <Carousel
       photos={TEST_IMAGES}
@@ -30,7 +30,7 @@ it("works when you click on the right arrow", function() {
   ).toBeInTheDocument();
 });
 
-it("works when you click on the left arrow", function() {
+it("works when you click on the left arrow", function () {
   const { container } = render(
     <Carousel
       photos={TEST_IMAGES}
@@ -46,16 +46,28 @@ it("works when you click on the left arrow", function() {
   ).not.toBeInTheDocument();
 
   // move forward in the carousel
+  fireEvent.click(container.querySelector(".fa-chevron-circle-right"));
   const leftArrow = container.querySelector(".fa-chevron-circle-left");
   fireEvent.click(leftArrow);
 
   // expect the second image to show, but not the first
   expect(
-    container.querySelector('img[alt="testing image 1"]')
+    container.querySelector('img[alt="testing image 2"]')
   ).not.toBeInTheDocument();
   expect(
-    container.querySelector(`img[alt="testing image 3"]`)
+    container.querySelector(`img[alt="testing image 1"]`)
   ).toBeInTheDocument();
+});
+
+it("hides left arrow on the first image", function () {
+  const { container, debug } = render(
+    <Carousel
+      photos={TEST_IMAGES}
+      title="images for testing"
+    />);
+  const leftArrow = container.querySelector(".fa-chevron-circle-left");
+  debug();
+  expect(leftArrow).not.toBeInTheDocument();
 });
 
 it("renders without crashing", function () {

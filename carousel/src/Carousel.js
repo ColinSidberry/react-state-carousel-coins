@@ -14,20 +14,26 @@ import Card from "./Card";
  * 
  * App --> Carousel --> Card
  */
- function Carousel({ photos, title }) {
+function Carousel({ photos, title }) {
   const [currCardIdx, setCurrCardIdx] = useState(0);
+  const [visibility, setVisibility] = useState("inline")
 
   const currCard = photos[currCardIdx];
   const total = photos.length;
 
   //Increments currCardIdx state by 1
   function goForward() {
-    const nextCardIdx = (currCardIdx === photos.length-1) ? 0 : (currCardIdx + 1);
+    const nextCardIdx = (currCardIdx === photos.length - 1) ? 0 : (currCardIdx + 1);
+    //Question: The code below is getting overriden by font awesome.
+    // how do we fix that?
+    // if (nextCardIdx === 0) {
+    //   setVisibility("none");
+    // }
     setCurrCardIdx(nextCardIdx);
   }
   //Decrements currCardIdx state by 1
   function goBackward() {
-    const nextCardIdx = (currCardIdx === 0) ? (photos.length-1) : (currCardIdx - 1);
+    const nextCardIdx = (currCardIdx === 0) ? (photos.length - 1) : (currCardIdx - 1);
     setCurrCardIdx(nextCardIdx);
   }
 
@@ -35,20 +41,21 @@ import Card from "./Card";
     <div className="Carousel">
       <h1>{title}</h1>
       <div className="Carousel-main">
-        <i
+        {!(currCardIdx === 0) && <i
           className="fas fa-chevron-circle-left fa-2x"
           onClick={goBackward}
-        />
+        />}
         <Card
           caption={currCard.caption}
           src={currCard.src}
           currNum={currCardIdx + 1}
           totalNum={total}
         />
-        <i
+        {/* {console.log(currCardIdx)} Question: Why don't we see this?*/}
+        {!(currCardIdx === 2) && <i
           className="fas fa-chevron-circle-right fa-2x"
           onClick={goForward}
-        />
+        />}
       </div>
     </div>
   );
