@@ -16,14 +16,14 @@ import Card from "./Card";
  */
 function Carousel({ photos, title }) {
   const [currCardIdx, setCurrCardIdx] = useState(0);
-  const [visibility, setVisibility] = useState("inline")
+  //const [visibility, setVisibility] = useState("inline") //add to classlist, hidden / not hidden
 
   const currCard = photos[currCardIdx];
   const total = photos.length;
 
   //Increments currCardIdx state by 1
   function goForward() {
-    const nextCardIdx = (currCardIdx === photos.length - 1) ? 0 : (currCardIdx + 1);
+    const nextCardIdx = (currCardIdx === photos.length - 1) ? 0 : (currCardIdx + 1); //just needs to +1
     //Question: The code below is getting overriden by font awesome.
     // how do we fix that?
     // if (nextCardIdx === 0) {
@@ -33,7 +33,7 @@ function Carousel({ photos, title }) {
   }
   //Decrements currCardIdx state by 1
   function goBackward() {
-    const nextCardIdx = (currCardIdx === 0) ? (photos.length - 1) : (currCardIdx - 1);
+    const nextCardIdx = (currCardIdx === 0) ? (photos.length - 1) : (currCardIdx - 1); //just needs to -1
     setCurrCardIdx(nextCardIdx);
   }
 
@@ -42,7 +42,7 @@ function Carousel({ photos, title }) {
       <h1>{title}</h1>
       <div className="Carousel-main">
         {!(currCardIdx === 0) && <i
-          className="fas fa-chevron-circle-left fa-2x"
+          className="fas fa-chevron-circle-left fa-2x" //could be hidden / non-hidden in className. 
           onClick={goBackward}
         />}
         <Card
@@ -51,7 +51,7 @@ function Carousel({ photos, title }) {
           currNum={currCardIdx + 1}
           totalNum={total}
         />
-        {/* {console.log(currCardIdx)} Question: Why don't we see this?*/}
+        {/* {console.log(currCardIdx)} Question: Why don't we see this? --> console log outside of return*/}
         {!(currCardIdx === 2) && <i
           className="fas fa-chevron-circle-right fa-2x"
           onClick={goForward}

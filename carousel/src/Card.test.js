@@ -11,7 +11,6 @@ it("renders without crashing", function () {
 });
 // end
 
-//Notes: snapshot
 it("matches snapshot", function () {
     const { container } = render(<Card
         caption={TEST_IMAGES[0].caption}
